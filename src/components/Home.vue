@@ -15,7 +15,9 @@
     <v-layout>
       <v-flex xs12>
         <v-carousel>
-          <v-carousel-item v-for="item in meetups" v-bind:src="item.imageUrl" :key="item.id">
+          <v-carousel-item 
+          @click="onLoadMeetup(item.id)"
+          v-for="item in meetups" v-bind:src="item.imageUrl" :key="item.id">
               <div class="title">
                   {{item.title}}
              </div>   
@@ -35,17 +37,16 @@
 <script>
   export default {
     data () {
-      return {
-        meetups: [{
-          id: 'sdfsdf123',
-          title: 'new meetup title',
-          imageUrl: 'https://cmeimg-a.akamaihd.net/640/clsd/getty/c64f76dc20c246ca88ee180fe4b4b781'
-        },
-        {
-          id: 'sdfsdf2123',
-          title: 'new1 meetup title',
-          imageUrl: 'https://www.petfinder.com/wp-content/uploads/2013/09/cat-black-superstitious-fcs-cat-myths-162286659.jpg'
-        }]
+      return {}
+    },
+    computed: {
+      meetups () {
+        return this.$store.getters.featuredMeetups
+      }
+    },
+    methods: {
+      onLoadMeetup (id) {
+        this.$router.push(`/meetups/${id}`)
       }
     }
   }

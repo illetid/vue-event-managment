@@ -9,7 +9,7 @@
     </v-layout>
     <v-layout row>
       <v-flex xs12>
-        <form>
+        <form @submit.prevent="onCreateMeetup">
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
               <v-text-field name="title" v-model="title" id="title" label="Title" required>
@@ -33,7 +33,7 @@
           </v-layout>
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <img :src="imageUrl" alt="preview image">
+              <img height="300px" :src="imageUrl" alt="preview image">
             </v-flex>
           </v-layout>
           <v-layout row>
@@ -45,7 +45,15 @@
           </v-layout>
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <v-btn class="primary" :disabled="!formIsValid">
+              <v-date-picker v-model="date"></v-date-picker>
+              <v-time-picker format="24hr" v-model="time"></v-time-picker>
+              <p>date - {{date}} | time - {{time}}</p>
+
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs12 sm6 offset-sm3>
+              <v-btn type="submit" class="primary" :disabled="!formIsValid">
                 Create meetup
               </v-btn>
             </v-flex>
@@ -63,16 +71,43 @@
         description: '',
         imageUrl: '',
         location: '',
-        title: ''
+        title: '',
+        date: null,
+        time: null
+      }
+    },
+    methods: {
+      onCreateMeetup() {
+        if (!this.formIsValid) {
+          return;
+        }
+        const meetupData = {
+          title: this.title,
+          location: this.location,
+          imageUrl: this.imageUrl,
+          description: this.description,
+          date: this.subtmittableDate
+        };
+        this.$store.dispatch('createMeetup', meetupData);
+        this.$router.push('/meetups')
       }
     },
     computed: {
       formIsValid() {
-        return
-          this.title !== '' &&
-          this.location !== '' &&
-          this.imageUrl !== '' &&
-          this.description !== ''
+        return this.title != '' && this.location != '' && this.imageUrl != '' && this.description != ''
+      },
+      subtmittableDate() {
+        const date = new Date(this.date);
+        if (typeof this.time === 'string') {
+          const hours = this.time.match(/^(\d+)/)[1];
+          const minutes = this.time.match(/:(\d+)/)[1];
+          date.setHours(hours);
+          date.setMinutes(minutes);
+        } else {
+          date.setHours(this.time.getHours());
+          date.setMinutes(this.time.getMinutes());
+          return date
+        }
       }
     }
   }

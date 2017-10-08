@@ -38,16 +38,47 @@
 
 <script>
   export default {
-    data () {
+    data() {
       return {
         drawer: false,
-        menuItems: [
-          {icon: 'rss_feed', title: 'Vue meetup', link: '/meetups'},
-          {icon: 'room', title: 'Organize Meetup', link: '/meetup/new'},
-          {icon: 'person', title: 'Profile', link: '/profile'},
-          {icon: 'face', title: 'Sign up', link: '/signup'},
-          {icon: 'lock_open', title: 'Sign in', link: '/signin'}
-        ]
+       
+      }
+    },
+    computed: {
+      menuItems() {
+        let menuItems = [{
+            icon: 'face',
+            title: 'Sign up',
+            link: '/signup'
+          },
+          {
+            icon: 'lock_open',
+            title: 'Sign in',
+            link: '/signin'
+          }
+        ];
+        if (this.userIsAuth) {
+          menuItems = [{
+              icon: 'rss_feed',
+              title: 'Vue meetup',
+              link: '/meetups'
+            },
+            {
+              icon: 'room',
+              title: 'Organize Meetup',
+              link: '/meetup/new'
+            },
+            {
+              icon: 'person',
+              title: 'Profile',
+              link: '/profile'
+            },
+          ]
+        }
+        return menuItems
+      },
+      userIsAuth() {
+        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
       }
     }
   }

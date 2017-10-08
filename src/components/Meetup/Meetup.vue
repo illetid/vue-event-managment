@@ -12,10 +12,11 @@
           </v-card-media>
           <v-card-text>
             <p class="data">
-              {{meetup.date}}
+              {{meetup.date | date}} - {{meetup.location}}
             </p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi quod iste quo neque? Cupiditate reprehenderit aliquam laudantium
-            facere cumque sit eum pariatur adipisci sapiente a! Similique rem harum dicta voluptatem.
+            <div>
+              {{meetup.description}}
+            </div>
           </v-card-text>
           <v-card-actions>
             <v-btn flat dark to="/">

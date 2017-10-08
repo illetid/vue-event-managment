@@ -5,10 +5,17 @@ import Vuetify from 'vuetify'
 import './stylus/main.styl'
 import App from './App'
 import router from './router'
-import {store} from './store'
+import {
+  store
+} from './store'
+import DateFilter from './filters/date'
+import * as firebase from 'firebase'
+import AlertComponent from './components/Shared/Alert.vue'
 
 Vue.use(Vuetify)
 Vue.config.productionTip = false
+Vue.filter('date', DateFilter)
+Vue.component('app-alert', AlertComponent)
 
 /* eslint-disable no-new */
 new Vue({
@@ -16,5 +23,19 @@ new Vue({
   router,
   store,
   template: '<App/>',
-  components: { App }
+  components: {
+    App
+  },
+  created() {
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyC8FxMjvOpOti69hCLWoXfc5S6y81DBoGg",
+      authDomain: "vue-meetups-13e89.firebaseapp.com",
+      databaseURL: "https://vue-meetups-13e89.firebaseio.com",
+      projectId: "vue-meetups-13e89",
+      storageBucket: "vue-meetups-13e89.appspot.com",
+      messagingSenderId: "411706306353"
+    };
+    firebase.initializeApp(config);
+  }
 })

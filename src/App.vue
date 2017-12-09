@@ -8,7 +8,17 @@
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>{{item.title}}
+            </v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
 
+         <v-list-tile v-if="userIsAuth"  @click="onLogOut">
+          <v-list-tile-action>
+            <v-icon left>flight_takeoff
+            </v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Log out
             </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
@@ -28,6 +38,13 @@
             {{item.icon}}
           </v-icon>
           {{item.title}}</v-btn>
+
+
+           <v-btn flat v-if="userIsAuth" @click="onLogOut">
+          <v-icon left>
+          flight_takeoff
+          </v-icon>
+          Log out</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <main>
@@ -79,6 +96,12 @@
       },
       userIsAuth() {
         return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+      }
+    },
+    methods : {
+      onLogOut() {
+        console.log('out');
+        this.$store.dispatch('logout');
       }
     }
   }

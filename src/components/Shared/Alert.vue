@@ -1,13 +1,18 @@
 <template>
-  <v-alert color="error" icon="error" dismissible @input="onClose">
-    This is a success alert that is closable.
+  <v-alert color="info" icon="info" dismissible @input="onClose" :value="true">
+    {{text}}
   </v-alert>
 </template>
 <script>
 export default {
+  props: ['text'],
+   data() {
+      return {
+      }
+   },
   methods : {
       onClose() {
-          this.$emmit('dismissed')
+          this.$emit('dismissed')
       }
   }
 }

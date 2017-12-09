@@ -25,7 +25,7 @@ export const store = new Vuex.Store({
     ],
     user: null,
     loading: false,
-    error: null
+    error: null,
   },
 
   getters: {
@@ -42,8 +42,14 @@ export const store = new Vuex.Store({
         })
       }
     },
-    user(state) {
+    user (state) {
       return state.user;
+    },
+    loading (state) {
+      return state.loading;
+    },
+    error (state) {
+      return state.error;
     }
   },
   mutations: {
@@ -124,6 +130,9 @@ export const store = new Vuex.Store({
             console.log(error);
           }
         )
+    },
+    clearError({commit}){
+      commit('clearError');
     }
   }
 

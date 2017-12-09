@@ -37,5 +37,7 @@ new Vue({
       messagingSenderId: "411706306353"
     };
     firebase.initializeApp(config);
+
+    this.$store.dispatch('loadedMeetups');
   }
 })

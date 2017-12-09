@@ -72,8 +72,8 @@
         imageUrl: '',
         location: '',
         title: '',
-        date: null,
-        time: null
+        date: new Date(),
+        time: new Date(),
       }
     },
     methods: {
@@ -86,7 +86,7 @@
           location: this.location,
           imageUrl: this.imageUrl,
           description: this.description,
-          date: this.subtmittableDate
+          date: this.submittableDateTime
         };
         this.$store.dispatch('createMeetup', meetupData);
         this.$router.push('/meetups')
@@ -96,19 +96,19 @@
       formIsValid() {
         return this.title != '' && this.location != '' && this.imageUrl != '' && this.description != ''
       },
-      subtmittableDate() {
-        const date = new Date(this.date);
-        if (typeof this.time === 'string') {
-          const hours = this.time.match(/^(\d+)/)[1];
-          const minutes = this.time.match(/:(\d+)/)[1];
-          date.setHours(hours);
-          date.setMinutes(minutes);
-        } else {
-          date.setHours(this.time.getHours());
-          date.setMinutes(this.time.getMinutes());
-          return date
-        }
-      }
+      submittableDateTime () {
+            const date = new Date(this.date)
+            if (typeof this.time === 'string') {
+              let hours = this.time.match(/^(\d+)/)[1]
+              const minutes = this.time.match(/:(\d+)/)[1]
+              date.setHours(hours)
+              date.setMinutes(minutes)
+            } else {
+              date.setHours(this.time.getHours())
+              date.setMinutes(this.time.getMinutes())
+            }
+            return date
+          }
     }
   }
 

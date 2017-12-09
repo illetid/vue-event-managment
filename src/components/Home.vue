@@ -13,6 +13,14 @@
       </v-flex>
     </v-layout>
     <v-layout>
+      <v-flex xs12 class="text-xs-center">
+         <v-progress-circular indeterminate color="primary" 
+         :size="70"
+         v-if="loading"
+         :width="7"></v-progress-circular>
+      </v-flex>
+    </v-layout>
+    <v-layout  v-if="!loading">
       <v-flex xs12>
         <v-carousel>
           <v-carousel-item 
@@ -42,6 +50,9 @@
     computed: {
       meetups () {
         return this.$store.getters.featuredMeetups
+      },
+      loading () {
+        return this.$store.getters.loading
       }
     },
     methods: {

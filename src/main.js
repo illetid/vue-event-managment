@@ -33,7 +33,7 @@ new Vue({
       authDomain: "vue-meetups-13e89.firebaseapp.com",
       databaseURL: "https://vue-meetups-13e89.firebaseio.com",
       projectId: "vue-meetups-13e89",
-      storageBucket: "vue-meetups-13e89.appspot.com",
+      storageBucket: "gs://vue-meetups-13e89.appspot.com",
       messagingSenderId: "411706306353"
     };
     firebase.initializeApp(config);
